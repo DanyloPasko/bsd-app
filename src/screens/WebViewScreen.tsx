@@ -1,24 +1,18 @@
-import { memo, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useNavigationStore } from '../store/navigationStore';
 
-function WebViewScreenBase() {
+export default function WebViewScreen() {
     const currentUrl = useNavigationStore((state) => state.currentUrl);
-    const webViewSource = useMemo(() => ({ uri: currentUrl }), [currentUrl]);
 
     return (
         <WebView
-            source={webViewSource}
+            source={{ uri: currentUrl }}
             userAgent="bsgapp"
             style={styles.webView}
         />
     );
 }
-
-const WebViewScreen = memo(WebViewScreenBase);
-
-export default WebViewScreen;
 
 const styles = StyleSheet.create({
     webView: {
