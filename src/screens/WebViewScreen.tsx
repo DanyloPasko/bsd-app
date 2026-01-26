@@ -1,23 +1,31 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { memo, useMemo } from 'react';
+import { StyleSheet } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { useNavigationStore } from '../store/navigationStore';
 
-const BRAND_COLOR = 'rgb(100, 50, 250)';
+function WebViewScreenBase() {
+    const currentUrl = useNavigationStore((state) => state.currentUrl);
+    const webViewSource = useMemo(() => ({ uri: currentUrl }), [currentUrl]);
 
-export default function WebViewScreen() {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>WebView will be here</Text>
-        </View>
+        <WebView
+            source={webViewSource}
+            userAgent="bsgapp"
+            androidLayerType="hardware"
+            renderToHardwareTextureAndroid
+            style={styles.webView}
+        />
     );
 }
 
+const WebViewScreen = memo(WebViewScreenBase);
+
+export default WebViewScreen;
+
 const styles = StyleSheet.create({
-    container: {
+    webView: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: BRAND_COLOR,
-    },
-    text: {
-        color: '#fff',
+        alignSelf: 'stretch',
+        backgroundColor: '#fff',
     },
 });

@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
+import { BRAND_COLOR } from "./src/utils/constans";
 
-const BRAND_COLOR = 'rgb(100, 50, 250)';
 
 export default function App() {
     return (

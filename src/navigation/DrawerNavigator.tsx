@@ -1,19 +1,41 @@
-import {
-    createDrawerNavigator,
-    DrawerContentScrollView,
-    DrawerItemList,
-} from '@react-navigation/drawer';
-import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useCallback, useEffect } from 'react';
 import WebViewScreen from '../screens/WebViewScreen';
+import { BRAND_COLOR } from '../utils/constans';
+import { fetchMenuConfig } from '../api/menu';
+import { useNavigationStore } from '../store/navigationStore';
+import DrawerContent from './components/DrawerContent';
 
 const Drawer = createDrawerNavigator();
-const BRAND_COLOR = 'rgb(100, 50, 250)';
 
 export default function DrawerNavigator() {
+    const setMenu = useNavigationStore((state) => state.setMenu);
+    const setLoading = useNavigationStore((state) => state.setLoading);
+    const setError = useNavigationStore((state) => state.setError);
+
+    const loadMenu = useCallback(async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const items = await fetchMenuConfig();
+            setMenu(items);
+        } catch (error) {
+            setError('Failed to load menu');
+        } finally {
+            setLoading(false);
+        }
+    }, [setError, setLoading, setMenu]);
+
+    useEffect(() => {
+        loadMenu();
+    }, [loadMenu]);
+
     return (
         <Drawer.Navigator
+            detachInactiveScreens={false}
             screenOptions={{
                 drawerPosition: 'right',
+                drawerType: 'front',
                 headerStyle: { backgroundColor: BRAND_COLOR },
                 headerTintColor: '#fff',
                 headerTitleStyle: { color: '#fff' },
@@ -22,62 +44,16 @@ export default function DrawerNavigator() {
                 drawerActiveTintColor: '#fff',
                 drawerInactiveTintColor: '#fff',
             }}
-            drawerContent={(props) => (
-                <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
-                    <View style={styles.drawerHeader}>
-                        <Text style={styles.drawerTitle}>Börse{'\n'}Stuttgart</Text>
-                        <TouchableOpacity
-                            onPress={() => props.navigation.closeDrawer()}
-                            accessibilityRole="button"
-                            accessibilityLabel="Close menu"
-                            style={styles.closeButton}
-                        >
-                            <Text style={styles.closeButtonText}>×</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <DrawerItemList {...props} />
-                </DrawerContentScrollView>
-            )}
+            drawerContent={(props) => <DrawerContent {...props} />}
         >
             <Drawer.Screen
                 name="Home"
                 component={WebViewScreen}
                 options={{
                     title: 'Börse Stuttgart',
-                    drawerLabel: () => null,
                     drawerItemStyle: { height: 0 },
                 }}
             />
         </Drawer.Navigator>
     );
 }
-
-const styles = StyleSheet.create({
-    drawerContent: {
-        paddingTop: 32,
-        backgroundColor: BRAND_COLOR,
-        flex: 1,
-    },
-    drawerHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingTop: 16,
-    },
-    drawerTitle: {
-        color: '#fff',
-        fontSize: 28,
-        fontWeight: '700',
-        lineHeight: 32,
-        flex: 1,
-    },
-    closeButton: {
-        paddingLeft: 16,
-    },
-    closeButtonText: {
-        color: '#fff',
-        fontSize: 60,
-        fontWeight: '300',
-        lineHeight: 34,
-    },
-});
