@@ -9,7 +9,13 @@
 npm install
 ```
 
-3) For iOS (macOS), install CocoaPods and run:
+3) Create a `.env` file with the API base URL:
+
+```bash
+EXPO_PUBLIC_API_BASE=https://www.boerse-stuttgart.de
+```
+
+4) For iOS (macOS), install CocoaPods and run:
 
 ```bash
 cd ios
