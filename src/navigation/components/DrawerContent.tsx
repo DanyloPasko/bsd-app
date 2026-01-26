@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 60,
         fontWeight: '300',
-        lineHeight: 34,
+        lineHeight: 60,
     },
     backButton: {
         paddingVertical: 12,
