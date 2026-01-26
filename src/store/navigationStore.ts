@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { MenuItem } from '../api/menu';
-import { WEB_BASE_URL } from '../utils/constans';
+import {create} from 'zustand';
+import {MenuItem} from '../api/menu';
+import {API_BASE_URL} from '../utils/constans';
 
 type NavigationState = {
     currentUrl: string;
@@ -13,7 +13,7 @@ type NavigationState = {
     setError: (error: string | null) => void;
 };
 
-const DEFAULT_URL = `${WEB_BASE_URL}/de-de`;
+const DEFAULT_URL = `${API_BASE_URL}/de-de`;
 
 export const useNavigationStore = create<NavigationState>((set) => ({
     currentUrl: DEFAULT_URL,

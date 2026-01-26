@@ -1,5 +1,5 @@
-import { apiClient } from './client';
-import { WEB_BASE_URL } from '../utils/constans';
+import {apiClient} from './client';
+import {API_BASE_URL} from '../utils/constans';
 
 export type MenuItem = {
     id: string;
@@ -67,8 +67,8 @@ const getTitle = (item: RawMenuItem): string => {
 const normalizeUrl = (url?: string): string | undefined => {
     if (!url) return undefined;
     if (url.startsWith('http')) return url;
-    if (url.startsWith('/')) return `${WEB_BASE_URL}${url}`;
-    return `${WEB_BASE_URL}/${url}`;
+    if (url.startsWith('/')) return `${API_BASE_URL}${url}`;
+    return `${API_BASE_URL}/${url}`;
 };
 
 const normalizeItems = (

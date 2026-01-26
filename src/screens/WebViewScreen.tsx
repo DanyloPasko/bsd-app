@@ -11,8 +11,6 @@ function WebViewScreenBase() {
         <WebView
             source={webViewSource}
             userAgent="bsgapp"
-            androidLayerType="hardware"
-            renderToHardwareTextureAndroid
             style={styles.webView}
         />
     );

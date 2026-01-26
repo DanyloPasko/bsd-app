@@ -3,6 +3,7 @@
     "name": "bsd-app",
     "slug": "bsd-app",
     "version": "1.0.0",
+    "scheme": "bsgapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,9 +12,11 @@
       "backgroundColor": "#6432FA"
     },
     "ios": {
+      "bundleIdentifier": "com.bsd.app",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.bsd.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#6432FA"
@@ -22,6 +25,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bb449f31-c800-4e4d-9879-1991e09eb1ae"
+      }
     }
   }
 }
