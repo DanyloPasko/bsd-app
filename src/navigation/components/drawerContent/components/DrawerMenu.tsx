@@ -2,6 +2,9 @@ import { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MenuItem } from '../../../../api/menu/menu';
 import { useNavigationStore } from '../../../../store/navigationStore';
+import {
+    FONT_FAMILY_SEMIBOLD,
+} from '../../../../fonts/typography';
 
 type DrawerMenuProps = {
     onClose: () => void;
@@ -99,11 +102,12 @@ const styles = StyleSheet.create({
     backButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: FONT_FAMILY_SEMIBOLD,
     },
     menuStatus: {
         color: '#fff',
         fontSize: 14,
+        fontFamily: FONT_FAMILY_SEMIBOLD,
         paddingVertical: 8,
     },
     menuList: {
@@ -118,10 +122,12 @@ const styles = StyleSheet.create({
     menuLabel: {
         color: '#fff',
         fontSize: 20,
+        fontFamily: FONT_FAMILY_SEMIBOLD,
     },
     menuArrow: {
         color: '#fff',
         fontSize: 28,
+        fontFamily: FONT_FAMILY_SEMIBOLD,
         lineHeight: 28,
         includeFontPadding: false,
         paddingRight: 6,

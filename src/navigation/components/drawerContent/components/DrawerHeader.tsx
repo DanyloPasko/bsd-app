@@ -1,4 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+    FONT_FAMILY_BOLD,
+    FONT_FAMILY_LIGHT,
+} from '../../../../fonts/typography';
 
 type DrawerHeaderProps = {
     onClose: () => void;
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
     drawerTitle: {
         color: '#fff',
         fontSize: 28,
-        fontWeight: '700',
+        fontFamily: FONT_FAMILY_BOLD,
         lineHeight: 32,
         flex: 1,
     },
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
     closeButtonText: {
         color: '#fff',
         fontSize: 60,
-        fontWeight: '300',
+        fontFamily: FONT_FAMILY_LIGHT,
         lineHeight: 60,
     },
 });

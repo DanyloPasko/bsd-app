@@ -5,6 +5,7 @@ import { BRAND_COLOR } from '../utils/constans';
 import { fetchMenuConfig } from '../api/menu/menu';
 import { useNavigationStore } from '../store/navigationStore';
 import DrawerContent from './components/drawerContent/DrawerContent';
+import { FONT_FAMILY_SEMIBOLD } from '../fonts/typography';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,7 +41,7 @@ export default function DrawerNavigator() {
                 drawerType: 'front',
                 headerStyle: { backgroundColor: BRAND_COLOR },
                 headerTintColor: '#fff',
-                headerTitleStyle: { color: '#fff' },
+                headerTitleStyle: { color: '#fff', fontFamily: FONT_FAMILY_SEMIBOLD },
                 headerTitleAlign: 'center',
                 drawerStyle: { backgroundColor: BRAND_COLOR, width: '100%' },
                 drawerActiveTintColor: '#fff',
