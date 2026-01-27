@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { MenuItem } from '../../../../api/menu';
+import { MenuItem } from '../../../../api/menu/menu';
 import { useNavigationStore } from '../../../../store/navigationStore';
 
 type DrawerMenuProps = {
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         paddingBottom: 24,
     },
     menuItem: {
-        paddingVertical: 10,
+        height: 48,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     },
     menuArrow: {
         color: '#fff',
-        fontSize: 20,
-        transform: [{ scale: 1.4 }],
+        fontSize: 28,
+        lineHeight: 28,
         includeFontPadding: false,
         paddingRight: 6,
     },

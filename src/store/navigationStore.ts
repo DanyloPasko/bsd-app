@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {MenuItem} from '../api/menu';
+import {MenuItem} from '../api/menu/menu';
 import {API_BASE_URL} from '../utils/constans';
 
 type NavigationState = {

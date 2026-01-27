@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useCallback, useEffect } from 'react';
 import WebViewScreen from '../screens/WebViewScreen';
 import { BRAND_COLOR } from '../utils/constans';
-import { fetchMenuConfig } from '../api/menu';
+import { fetchMenuConfig } from '../api/menu/menu';
 import { useNavigationStore } from '../store/navigationStore';
 import DrawerContent from './components/drawerContent/DrawerContent';
 

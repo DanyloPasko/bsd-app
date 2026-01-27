@@ -51,7 +51,7 @@ You need a dev build to test deep linking (Expo Go does not support this).
 ## Android dev build
 
 Option 1: install the prebuilt dev build:
-- https://expo.dev/accounts/danil.pasco/projects/bsd-app/builds/e6d77638-f9e1-43ea-8ab7-1413aab0d0b7
+- https://expo.dev/accounts/danil.pasco/projects/bsd-app/builds/9fa8f267-df4d-4b84-9d4b-487698b45140
 
 Option 2: build your own dev build:
 - Update `app.json` if needed.
