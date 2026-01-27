@@ -44,9 +44,14 @@ npx expo start
 
 2) Open Expo Go on your iPhone or Android device and scan the QR code.
 
+## Download ready APK (Android)
+
+To preview the finished app without running the code, download and install this APK:
+- https://expo.dev/artifacts/eas/x6cp4EyVQVfSiD5qeLvy3j.apk
+
 ## Deep linking tests require a dev build
 
-You need a dev build to test deep linking (Expo Go does not support this).
+To test deep links, either install the ready Android APK above or build a dev build yourself (Expo Go does not support this).
 
 ## Android dev build
 
