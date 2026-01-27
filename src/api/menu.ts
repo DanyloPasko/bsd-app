@@ -1,5 +1,5 @@
-import {apiClient} from './client';
-import {API_BASE_URL} from '../utils/constans';
+import { apiClient } from './client';
+import { API_BASE_URL } from '../utils/constans';
 
 export type MenuItem = {
     id: string;
@@ -28,40 +28,90 @@ type RawMenuItem = {
 const MENU_CONFIG_PATH =
     '/de-de/api/bsg-feature-navigation/MenuConfiguration/GetConfiguration';
 
-const getRootItems = (data: any): RawMenuItem[] => {
+const ROOT_ITEM_PATHS = [
+    ['menuItems'],
+    ['MenuItems'],
+    ['items'],
+    ['Items'],
+    ['navigation', 'items'],
+    ['navigation', 'Items'],
+    ['Navigation', 'items'],
+    ['Navigation', 'Items'],
+];
+
+const CHILD_ITEM_KEYS = [
+    'menuItems',
+    'items',
+    'children',
+    'subItems',
+    'MenuItems',
+    'nodes',
+    'Nodes',
+];
+
+const URL_KEYS = ['url', 'href', 'link', 'targetUrl', 'navigationUrl', 'uri'];
+
+const getArrayByPath = (data: unknown, path: string[]): RawMenuItem[] | undefined => {
+    let current: unknown = data;
+
+    for (const key of path) {
+        if (!current || typeof current !== 'object') {
+            return undefined;
+        }
+
+        current = (current as Record<string, unknown>)[key];
+    }
+
+    return Array.isArray(current) ? (current as RawMenuItem[]) : undefined;
+};
+
+const getArrayByKeys = (item: RawMenuItem, keys: string[]): RawMenuItem[] => {
+    for (const key of keys) {
+        const value = (item as Record<string, unknown>)[key];
+        if (Array.isArray(value)) {
+            return value as RawMenuItem[];
+        }
+    }
+
+    return [];
+};
+
+const getStringByKeys = (item: RawMenuItem, keys: string[]): string | undefined => {
+    for (const key of keys) {
+        const value = (item as Record<string, unknown>)[key];
+        if (typeof value === 'string' && value.length > 0) {
+            return value;
+        }
+    }
+
+    return undefined;
+};
+
+const getRootItems = (data: unknown): RawMenuItem[] => {
     if (Array.isArray(data)) {
         return data;
     }
 
-    return (
-        data?.menuItems ??
-        data?.MenuItems ??
-        data?.items ??
-        data?.Items ??
-        data?.navigation?.items ??
-        data?.navigation?.Items ??
-        data?.Navigation?.items ??
-        data?.Navigation?.Items ??
-        []
-    );
+    for (const path of ROOT_ITEM_PATHS) {
+        const items = getArrayByPath(data, path);
+        if (items) {
+            return items;
+        }
+    }
+
+    return [];
 };
 
 const getChildItems = (item: RawMenuItem): RawMenuItem[] => {
-    return (
-        item.menuItems ??
-        item.items ??
-        item.children ??
-        item.subItems ??
-        (item as any).menuItems ??
-        (item as any).MenuItems ??
-        (item as any).nodes ??
-        (item as any).Nodes ??
-        []
-    );
+    return getArrayByKeys(item, CHILD_ITEM_KEYS);
 };
 
 const getTitle = (item: RawMenuItem): string => {
     return item.menuLabel ?? item.title ?? item.label ?? item.name ?? 'Untitled';
+};
+
+const getUrl = (item: RawMenuItem): string | undefined => {
+    return getStringByKeys(item, URL_KEYS);
 };
 
 const normalizeUrl = (url?: string): string | undefined => {
@@ -77,21 +127,14 @@ const normalizeItems = (
 ): MenuItem[] => {
     return items.map((item, index) => {
         const title = getTitle(item);
-        const id = [...path, `${title}-${index}`].join('/');
-        const url =
-            item.url ??
-            item.href ??
-            item.link ??
-            item.targetUrl ??
-            item.navigationUrl ??
-            item.uri;
-        const children = getChildItems(item);
+        const pathSegment = `${title}-${index}`;
+        const nextPath = [...path, pathSegment];
 
         return {
-            id,
+            id: nextPath.join('/'),
             title,
-            url: normalizeUrl(url),
-            children: normalizeItems(children, [...path, `${title}-${index}`]),
+            url: normalizeUrl(getUrl(item)),
+            children: normalizeItems(getChildItems(item), nextPath),
         };
     });
 };

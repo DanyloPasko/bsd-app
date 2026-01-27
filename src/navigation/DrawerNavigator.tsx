@@ -4,7 +4,7 @@ import WebViewScreen from '../screens/WebViewScreen';
 import { BRAND_COLOR } from '../utils/constans';
 import { fetchMenuConfig } from '../api/menu';
 import { useNavigationStore } from '../store/navigationStore';
-import DrawerContent from './components/DrawerContent';
+import DrawerContent from './components/drawerContent/DrawerContent';
 
 const Drawer = createDrawerNavigator();
 
@@ -13,17 +13,19 @@ export default function DrawerNavigator() {
     const setLoading = useNavigationStore((state) => state.setLoading);
     const setError = useNavigationStore((state) => state.setError);
 
-    const loadMenu = useCallback(async () => {
-        try {
-            setLoading(true);
-            setError(null);
-            const items = await fetchMenuConfig();
-            setMenu(items);
-        } catch (error) {
-            setError('Failed to load menu');
-        } finally {
-            setLoading(false);
-        }
+    const loadMenu = useCallback(() => {
+        setLoading(true);
+        setError(null);
+        fetchMenuConfig()
+            .then((items) => {
+                setMenu(items);
+            })
+            .catch(() => {
+                setError('Failed to load menu');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [setError, setLoading, setMenu]);
 
     useEffect(() => {
@@ -44,7 +46,7 @@ export default function DrawerNavigator() {
                 drawerActiveTintColor: '#fff',
                 drawerInactiveTintColor: '#fff',
             }}
-            drawerContent={(props) => <DrawerContent {...props} />}
+            drawerContent={DrawerContent}
         >
             <Drawer.Screen
                 name="Home"
