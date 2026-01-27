@@ -29,8 +29,8 @@ export default function App() {
 
     return (
         <NavigationContainer>
-            <StatusBar barStyle="light-content" backgroundColor={BRAND_COLOR} />
-            <DrawerNavigator />
+            <StatusBar barStyle="light-content" backgroundColor={BRAND_COLOR}/>
+            <DrawerNavigator/>
         </NavigationContainer>
     );
 }
