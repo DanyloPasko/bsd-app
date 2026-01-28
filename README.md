@@ -24,7 +24,7 @@ pod install
 
 ## Framework choice
 
-This app is built with Expo on top of React Native. Expo is used to speed up development and provide a consistent dev-client workflow across platforms.
+This app is built with Expo on top of React Native. Expo is used to speed up development, reduce native setup friction, and provide a consistent dev-client workflow across platforms. Expo is also the approach recommended by the React Native team and is generally the best choice for new projects that want to ship quickly with fewer platform-specific pitfalls.
 
 ## Menu rendering approach
 
