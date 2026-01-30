@@ -1,5 +1,13 @@
-import { useCallback, useState } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+    Animated,
+    Dimensions,
+    FlatList,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import { MenuItem } from '../../../../api/menu/menu';
 import { useNavigationStore } from '../../../../store/navigationStore';
 import {
@@ -25,6 +33,8 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
     const error = useNavigationStore((state) => state.error);
     const setCurrentUrl = useNavigationStore((state) => state.setCurrentUrl);
     const [menuStack, setMenuStack] = useState<MenuLevel[]>([]);
+    const translateX = useRef(new Animated.Value(0)).current;
+    const previousDepth = useRef(0);
 
     const currentLevel = menuStack[menuStack.length - 1];
     const currentItems = currentLevel ? currentLevel.items : menu;
@@ -51,6 +61,23 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
         handleNavigate(item.url);
     }, [handleNavigate]);
 
+    useEffect(() => {
+        const nextDepth = menuStack.length;
+        const isForward = nextDepth > previousDepth.current;
+        const slideDistance = Math.min(
+            36,
+            Dimensions.get('window').width * 0.08,
+        );
+
+        previousDepth.current = nextDepth;
+        translateX.setValue(isForward ? slideDistance : -slideDistance);
+        Animated.timing(translateX, {
+            toValue: 0,
+            duration: 220,
+            useNativeDriver: true,
+        }).start();
+    }, [menuStack.length, translateX]);
+
     const renderItem = useCallback(({ item }: { item: MenuItem }) => (
         <TouchableOpacity
             onPress={() => handleItemPress(item)}
@@ -65,13 +92,16 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
     ), [handleItemPress]);
 
     const listHeader = currentTitle ? (
-        <TouchableOpacity
-            onPress={handleBack}
-            accessibilityRole="button"
-            style={styles.backButton}
-        >
-            <Text style={styles.backButtonText}>{'< '}Zurück</Text>
-        </TouchableOpacity>
+        <View style={styles.menuHeader}>
+            <Text style={styles.menuHeaderTitle}>{currentTitle}</Text>
+            <TouchableOpacity
+                onPress={handleBack}
+                accessibilityRole="button"
+                style={styles.backButton}
+            >
+                <Text style={styles.backButtonText}>{'< '}Zurück</Text>
+            </TouchableOpacity>
+        </View>
     ) : null;
 
     if (loading) {
@@ -83,26 +113,43 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
     }
 
     return (
-        <FlatList
-            data={currentItems}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            ListHeaderComponent={listHeader}
-            contentContainerStyle={styles.menuList}
-            showsVerticalScrollIndicator={false}
-        />
+        <Animated.View style={[styles.animatedContainer, { transform: [{ translateX }] }]}>
+            <FlatList
+                data={currentItems}
+                keyExtractor={(item) => item.id}
+                renderItem={renderItem}
+                ListHeaderComponent={listHeader}
+                contentContainerStyle={styles.menuList}
+                showsVerticalScrollIndicator={false}
+            />
+        </Animated.View>
     );
 }
 
 const styles = StyleSheet.create({
+    animatedContainer: {
+        flex: 1,
+    },
     backButton: {
         paddingVertical: 12,
-        alignSelf: 'flex-end',
+        paddingLeft: 12,
     },
     backButtonText: {
         color: '#fff',
         fontSize: 16,
         fontFamily: FONT_FAMILY_SEMIBOLD,
+    },
+    menuHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 6,
+    },
+    menuHeaderTitle: {
+        color: '#8EC9FF',
+        fontSize: 18,
+        fontFamily: FONT_FAMILY_SEMIBOLD,
+        flex: 1,
     },
     menuStatus: {
         color: '#fff',
