@@ -20,7 +20,7 @@ export default function DrawerContent({ navigation }: DrawerContentComponentProp
 
 const styles = StyleSheet.create({
     drawerContent: {
-        paddingTop: 32,
+        paddingTop: 40,
         backgroundColor: BRAND_COLOR,
         flex: 1,
         paddingHorizontal: 16,

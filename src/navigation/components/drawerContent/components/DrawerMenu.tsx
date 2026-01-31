@@ -11,7 +11,9 @@ import {
 import { MenuItem } from '../../../../api/menu/menu';
 import { useNavigationStore } from '../../../../store/navigationStore';
 import {
+    FONT_FAMILY_BOLD,
     FONT_FAMILY_SEMIBOLD,
+    FONT_FAMILY_REGULAR,
 } from '../../../../fonts/typography';
 
 type DrawerMenuProps = {
@@ -86,7 +88,7 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
         >
             <Text style={styles.menuLabel}>{item.title}</Text>
             {item.children.length > 0 ? (
-                <Text style={styles.menuArrow}>{'>'}</Text>
+                <Text style={styles.menuArrow}>{'›'}</Text>
             ) : null}
         </TouchableOpacity>
     ), [handleItemPress]);
@@ -99,7 +101,10 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
                 accessibilityRole="button"
                 style={styles.backButton}
             >
-                <Text style={styles.backButtonText}>{'< '}Zurück</Text>
+                <Text style={styles.backButtonText}>
+                    <Text style={styles.backArrow}>{'‹ '}</Text>
+                    {'Zurück'}
+                </Text>
             </TouchableOpacity>
         </View>
     ) : null;
@@ -137,7 +142,12 @@ const styles = StyleSheet.create({
     backButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontFamily: FONT_FAMILY_SEMIBOLD,
+        fontFamily: FONT_FAMILY_REGULAR,
+    },
+    backArrow: {
+        fontSize: 24,
+        fontFamily: FONT_FAMILY_REGULAR,
+        lineHeight: 24,
     },
     menuHeader: {
         flexDirection: 'row',
@@ -168,14 +178,14 @@ const styles = StyleSheet.create({
     },
     menuLabel: {
         color: '#fff',
-        fontSize: 20,
-        fontFamily: FONT_FAMILY_SEMIBOLD,
+        fontSize: 21,
+        fontFamily: FONT_FAMILY_BOLD,
     },
     menuArrow: {
         color: '#fff',
-        fontSize: 28,
-        fontFamily: FONT_FAMILY_SEMIBOLD,
-        lineHeight: 28,
+        fontSize: 36,
+        fontFamily: FONT_FAMILY_REGULAR,
+        lineHeight: 36,
         includeFontPadding: false,
         paddingRight: 6,
     },
