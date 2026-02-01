@@ -2,6 +2,8 @@
 
 ## Installation
 
+Node.js 20+ is required.
+
 1) Install Node.js and npm.
 2) Install dependencies:
 
@@ -28,7 +30,7 @@ This app is built with Expo on top of React Native. Expo is used to speed up dev
 
 ## Menu rendering approach
 
-The side menu is rendered via a custom React Navigation drawer. Menu items are fetched from the API, normalized into a tree, and displayed with a simple stack-based drill‑down. Leaf items update the current WebView URL.
+The menu is rendered as a full-screen stack screen (opened from the header). Menu items are fetched from the API, normalized into a tree, and displayed with a stack-based drill‑down. Leaf items update the current WebView URL and close the menu screen.
 
 ## Deep link handling
 
