@@ -58,7 +58,7 @@ To test deep links, either install the ready Android APK above or build a dev bu
 ## Android dev build
 
 Option 1: install the prebuilt dev build:
-- https://expo.dev/accounts/danil.pasco/projects/bsd-app/builds/9fa8f267-df4d-4b84-9d4b-487698b45140
+- https://expo.dev/accounts/danil.pasco/projects/bsd-app/builds/cf20504e-bf33-4458-8cdb-58b212780c3a
 
 Option 2: build your own dev build:
 - Update `app.json` if needed.
