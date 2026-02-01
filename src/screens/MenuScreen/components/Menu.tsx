@@ -8,13 +8,13 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { MenuItem } from '../../../../api/menu/menu';
-import { useNavigationStore } from '../../../../store/navigationStore';
+import { MenuItem } from '../../../api/menu/menu';
+import { useNavigationStore } from '../../../store/navigationStore';
 import {
     FONT_FAMILY_BOLD,
     FONT_FAMILY_SEMIBOLD,
     FONT_FAMILY_REGULAR,
-} from '../../../../fonts/typography';
+} from '../../../fonts/typography';
 
 type DrawerMenuProps = {
     onClose: () => void;
@@ -29,7 +29,7 @@ function MenuStatus({ children }: { children: string }) {
     return <Text style={styles.menuStatus}>{children}</Text>;
 }
 
-export default function DrawerMenu({ onClose }: DrawerMenuProps) {
+export default function Menu({ onClose }: DrawerMenuProps) {
     const menu = useNavigationStore((state) => state.menu);
     const loading = useNavigationStore((state) => state.loading);
     const error = useNavigationStore((state) => state.error);
@@ -65,6 +65,9 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
 
     useEffect(() => {
         const nextDepth = menuStack.length;
+        if (nextDepth === previousDepth.current) {
+            return;
+        }
         const isForward = nextDepth > previousDepth.current;
         const slideDistance = Math.min(
             36,

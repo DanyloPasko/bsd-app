@@ -2,13 +2,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
     FONT_FAMILY_BOLD,
     FONT_FAMILY_LIGHT,
-} from '../../../../fonts/typography';
+} from '../../../fonts/typography';
 
 type DrawerHeaderProps = {
     onClose: () => void;
 };
 
-export default function DrawerHeader({ onClose }: DrawerHeaderProps) {
+export default function Header({ onClose }: DrawerHeaderProps) {
     return (
         <View style={styles.drawerHeader}>
             <Text style={styles.drawerTitle}>Börse{'\n'}Stuttgart</Text>
