@@ -49,7 +49,7 @@ npx expo start
 ## Download ready APK (Android)
 
 To preview the finished app without running the code, download and install this APK:
-- https://expo.dev/artifacts/eas/x6cp4EyVQVfSiD5qeLvy3j.apk
+- https://expo.dev/artifacts/eas/gm7zXaa7j6DSMLLPAiY7cM.apk
 
 ## Deep linking tests require a dev build
 
