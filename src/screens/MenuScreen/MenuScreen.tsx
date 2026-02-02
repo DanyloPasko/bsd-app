@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { BRAND_COLOR } from '../../utils/constans';
@@ -40,10 +40,8 @@ export default function MenuScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.drawerContent}>
-                <Header onClose={closeMenu} />
-                <Menu onClose={closeMenu} />
-            </View>
+            <Header onClose={closeMenu}/>
+            <Menu onClose={closeMenu}/>
         </SafeAreaView>
     );
 }
@@ -52,11 +50,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: BRAND_COLOR,
-    },
-    drawerContent: {
-        paddingTop: 40,
-        backgroundColor: BRAND_COLOR,
-        flex: 1,
         paddingHorizontal: 16,
     },
 });
