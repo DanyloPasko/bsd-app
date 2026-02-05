@@ -82,6 +82,7 @@ eas build --platform android --profile preview
 - **Expo** — Framework for rapid React Native application development
 - **React Native** — Cross-platform mobile development
 - **React Navigation** — Screen navigation and routing
+- **Zustand** — Global state management used in this project (lightweight and simple)
 - **WebView** — Embedded browser for displaying web content
 - **Reanimated** — High-performance animations
 
