@@ -52,7 +52,7 @@ Scan the QR code with the **Expo Go** app on your device (iOS/Android).
 ### Ready APK for Android
 
 A pre-built APK for quick demonstration:
-- [Download APK](https://expo.dev/artifacts/eas/gm7zXaa7j6DSMLLPAiY7cM.apk)
+- [Download APK](https://expo.dev/artifacts/eas/iqjmXF5Asp8Cg4TPgzFbAe.apk)
 
 ### Dev Build for Android
 
