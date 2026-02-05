@@ -4,7 +4,7 @@ import MenuScreen from '../screens/MenuScreen/MenuScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function RootNaviagtion() {
+export default function RootNavigation() {
     return (
         <Stack.Navigator>
             <Stack.Screen

@@ -10,7 +10,7 @@ import {
 import { BRAND_COLOR } from './src/utils/constans';
 import useDeepLinking from './src/hooks/useDeepLinking';
 import { applyGlobalFont } from './src/fonts/typography';
-import RootNaviagtion from "./src/navigation/RootNaviagtion";
+import RootNavigation from "./src/navigation/RootNavigation";
 
 applyGlobalFont();
 
@@ -30,7 +30,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <StatusBar barStyle="light-content" backgroundColor={BRAND_COLOR}/>
-            <RootNaviagtion/>
+            <RootNavigation/>
         </NavigationContainer>
     );
 }
