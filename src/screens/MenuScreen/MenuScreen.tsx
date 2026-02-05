@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { BRAND_COLOR } from '../../utils/constans';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from './components/Header';
-import Menu from './components/Menu';
-import { fetchMenuConfig } from '../../api/menu/menu';
+import Menu from './components/menu/Menu';
 import { useNavigationStore } from '../../store/navigationStore';
+import { fetchMenuConfig } from "../../api/menu/menu";
 
 export default function MenuScreen() {
     const navigation = useNavigation();
