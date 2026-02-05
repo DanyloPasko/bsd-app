@@ -1,72 +1,129 @@
 # BSD App
 
-## Installation
+A mobile application built with React Native featuring WebView navigation and deep linking support.
 
-Node.js 20+ is required.
+---
 
-1) Install Node.js and npm.
-2) Install dependencies:
+## 📋 Requirements
+
+- **Node.js 20+**
+- **npm** or **yarn**
+- For iOS: **Xcode** and **CocoaPods**
+- For Android: **Android Studio** or **EAS CLI**
+
+---
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-3) Create a `.env` file with the API base URL:
+### 2. Environment Setup
 
-```bash
+Create a `.env` file with the API base URL:
+
+```env
 EXPO_PUBLIC_API_BASE=https://www.boerse-stuttgart.de
 ```
 
-4) For iOS (macOS), install CocoaPods and run:
+### 3. Install iOS Dependencies (macOS)
 
 ```bash
 cd ios
 pod install
+cd ..
 ```
 
-## Framework choice
-
-This app is built with Expo on top of React Native. Expo is used to speed up development, reduce native setup friction, and provide a consistent dev-client workflow across platforms. Expo is also the approach recommended by the React Native team and is generally the best choice for new projects that want to ship quickly with fewer platform-specific pitfalls.
-
-## Menu rendering approach
-
-The menu is rendered as a full-screen stack screen (opened from the header). Menu items are fetched from the API, normalized into a tree, and displayed with a stack-based drill‑down. Leaf items update the current WebView URL and close the menu screen.
-
-## Deep link handling
-
-Deep links are handled in `App.tsx` using Expo Linking. The app parses the incoming URL and routes known paths (for example, `events`) to the corresponding WebView URL.
-
-## Run with Expo Go (iOS/Android)
-
-1) Start Metro:
+### 4. Run with Expo Go
 
 ```bash
 npx expo start
 ```
 
-2) Open Expo Go on your iPhone or Android device and scan the QR code.
+Scan the QR code with the **Expo Go** app on your device (iOS/Android).
 
-## Download ready APK (Android)
+---
 
-To preview the finished app without running the code, download and install this APK:
-- https://expo.dev/artifacts/eas/gm7zXaa7j6DSMLLPAiY7cM.apk
+## 📱 Building & Distribution
 
-## Deep linking tests require a dev build
+### Ready APK for Android
 
-To test deep links, either install the ready Android APK above or build a dev build yourself (Expo Go does not support this).
+A pre-built APK for quick demonstration:
+- [Download APK](https://expo.dev/artifacts/eas/gm7zXaa7j6DSMLLPAiY7cM.apk)
 
-## Android dev build
+### Dev Build for Android
 
-Option 1: install the prebuilt dev build:
-- https://expo.dev/accounts/danil.pasco/projects/bsd-app/builds/cf20504e-bf33-4458-8cdb-58b212780c3a
+Dev Build is required to test deep linking (Expo Go does not support this).
 
-Option 2: build your own dev build:
-- Update `app.json` if needed.
-- Build with EAS (`eas build`) or Android Studio.
+**Option 1: Use Pre-built Dev Build**
+- [Dev Build for Android](https://expo.dev/accounts/danil.pasco/projects/bsd-app/builds/cf20504e-bf33-4458-8cdb-58b212780c3a)
 
-## iOS dev build
+**Option 2: Build Your Own Dev Build**
+```bash
+eas build --platform android --profile preview
+```
 
-1) Open `ios/*.xcworkspace` in Xcode.
-2) In Signing & Capabilities, select your Team (Apple ID).
-3) Connect your iPhone to the Mac via cable (or choose a simulator).
-4) Click Run/Build.
+### Dev Build for iOS
+
+1. Open `ios/*.xcworkspace` in Xcode
+2. Go to **Signing & Capabilities** and select your Team (Apple ID)
+3. Connect your iPhone via cable or select a simulator
+4. Click **Run** / **Build**
+
+---
+
+## 🏗️ Architecture
+
+### Technology Stack
+
+- **Expo** — Framework for rapid React Native application development
+- **React Native** — Cross-platform mobile development
+- **React Navigation** — Screen navigation and routing
+- **WebView** — Embedded browser for displaying web content
+- **Reanimated** — High-performance animations
+
+### Project Structure
+
+```
+src/
+├── api/              # API client and menu configuration
+├── fonts/            # Typography and font styles
+├── hooks/            # Custom React hooks
+├── navigation/       # Navigation and routing
+├── screens/          # Application screens
+│   └── MenuScreen/   # Menu screen
+│       └── components/
+│           ├── Header.tsx
+│           └── menu/              # Menu components
+│               ├── Menu.tsx
+│               └── components/
+│                   ├── MenuItemComponent.tsx
+│                   ├── MenuStatus.tsx
+│                   └── MenuHeader.tsx
+├── store/            # Global state management (Zustand)
+└── utils/            # Utilities and constants
+```
+
+### Key Components
+
+#### Menu Screen
+- Full-screen menu opened from the header
+- Menu items fetched from API and displayed as a tree structure
+- Supports drill-down navigation through submenus
+- Tapping on leaf items updates the WebView URL and closes the menu
+
+#### Deep Linking
+- Deep links are handled in `App.tsx` using Expo Linking
+- Parses incoming URLs and routes known paths (e.g., `events` → corresponding WebView URL)
+
+---
+
+## 📚 Documentation
+
+- [Expo Documentation](https://docs.expo.dev)
+- [React Native Documentation](https://reactnative.dev)
+- [React Navigation](https://reactnavigation.org)
+- [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/)
